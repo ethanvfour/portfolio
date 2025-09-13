@@ -6,42 +6,65 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Projects from "./components/Projects";
 import AboutMe from "./components/AboutMe";
 
+/**
+ * Main App component for the portfolio site.
+ * Handles routing, navigation, and layout.
+ */
+
 function App() {
+  // Navigation links and their associated components
   const LINKS = [
-    { name: "Home", link: "/", component: <Home /> },
-    { name: "Projects", link: "/projects", component: <Projects /> },
-    { name: "About Me", link: "/about", component: <AboutMe /> },
-    { name: "Wrong Place", link: "*", component: <WrongPlace /> },
+    { name: "Home", link: "/", component: Home },
+    { name: "Projects", link: "/projects", component: Projects },
+    { name: "About Me", link: "/about", component: AboutMe },
+    { name: "Wrong Place", link: "*", component: WrongPlace }, // Catch-all route
   ];
-  const [whichOne, setWhichOne] = useState("Home");
+
+  // Tracks which navigation link is currently active
+  const [whichOne, setWhichOne] = useState("");
+
   return (
     <BrowserRouter>
       <div className="flex flex-col min-h-screen font-serif">
-        <header className="w-full min-h-[100px] bg-[#FFFFFF] mx-auto flex flex-col justify-center items-center   border-b-3">
-          <div className="text-4xl text-center">Ethan Guillem</div>
+        {/* Header section with site title and navigation */}
+        <header className="w-full sm:min-h-[100px] md:min-h-[150px] lg:min-h-[175px] bg-[#FFFFFF] mx-auto flex flex-col justify-evenly items-center border-b-3">
+          <div className="text-4xl text-center ">Ethan Guillem</div>
 
-          <nav className="flex mt-4 w-full justify-evenly">
+          {/* Navigation bar with responsive font sizes */}
+          <nav className="flex mt-4 w-full justify-evenly sm:text-sm md:text-base lg:text-lg">
             {LINKS.filter((l) => l.link !== "*").map((l, index) => (
               <Link
                 key={index}
                 to={l.link}
                 className={` hover:text-[#000000] focus:text-[#000000] transition-all duration-250 ${
-                  whichOne === l.name ? "text-[#000000]" + `aria-current="page"` : "text-[#999999]"
+                  whichOne === l.name
+                    ? "text-[#000000]"
+                    : "text-[#999999]"
                 }`}
-                onClick={() => setWhichOne(l.name)}
+                aria-current={whichOne === l.name ? "page" : ""}
+                onClick={() => setWhichOne(l.name)} // Update active link
               >
                 {l.name}
               </Link>
             ))}
           </nav>
         </header>
+        {/* Main content area with route rendering */}
         <main className="flex-1 p-1">
           <Routes>
             {LINKS.map((com, i) => (
-              <Route key={i} path={com.link} element={com.component} />
+              <Route
+                key={i}
+                path={com.link}
+                element={
+                  // Pass name and setter to each route component
+                  <com.component name={com.name} setterForStyle={setWhichOne} />
+                }
+              />
             ))}
           </Routes>
         </main>
+        {/* Footer section */}
         <footer className="w-full min-h-[100px] bg-[#686868] shadow-xl/30 border-solid border-[#ffffff] border-t-3 text-[#FFFFFF]"></footer>
       </div>
     </BrowserRouter>

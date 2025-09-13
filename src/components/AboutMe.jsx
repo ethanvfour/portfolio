@@ -1,9 +1,33 @@
+import { useEffect } from "react";
 import "../index.css";
 
 
-function AboutMe()
-{
-    return <p className="flex justify-center items-center">About Me</p>
+/**
+ * Component
+ * @param {props.name} name of component
+ * @param {props.setterForStyle} setter function for style.
+ */
+function AboutMe(props) {
+  useEffect(() => {
+    document.title = props.name;
+    props.setterForStyle(props.name);
+  }, []);
+
+  return (
+    <div id="about-me" className="flex justify-center flex-col items-center">
+      <div className="flex flex-col justify-evenly items-center pt-3 pb-3 border-3 shadow-xl/30 h-[400px] w-[400px] p-12">
+        <h1 className="text-2xl">
+          <b>About me</b>
+        </h1>
+        <p className="">
+          Hi! I'm a passionate web developer who loves building interactive and
+          user-friendly applications with React. I enjoy learning new
+          technologies and solving challenging problems. When I'm not coding,
+          you can find me exploring nature or reading tech blogs.
+        </p>
+      </div>
+    </div>
+  );
 }
 
 export default AboutMe;
