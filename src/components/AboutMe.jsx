@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import "../index.css";
 
-
 /**
  * Component
  * @param {props.name} name of component

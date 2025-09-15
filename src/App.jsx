@@ -37,9 +37,7 @@ function App() {
                 key={index}
                 to={l.link}
                 className={` hover:text-[#000000] focus:text-[#000000] transition-all duration-250 ${
-                  whichOne === l.name
-                    ? "text-[#000000]"
-                    : "text-[#999999]"
+                  whichOne === l.name ? "text-[#000000]" : "text-[#999999]"
                 }`}
                 aria-current={whichOne === l.name ? "page" : ""}
                 onClick={() => setWhichOne(l.name)} // Update active link
@@ -65,7 +63,24 @@ function App() {
           </Routes>
         </main>
         {/* Footer section */}
-        <footer className="w-full min-h-[100px] bg-[#686868] shadow-xl/30 border-solid border-[#ffffff] border-t-3 text-[#FFFFFF]"></footer>
+
+        <footer className="flex justify-around w-full gap-x-6 min-h-[100px] bg-[#ededed] shadow-xl/30 border-solid border-[#000000] border-t-3 text-[#000000] text-sm px-6">
+          <div
+            id="nameAndTings"
+            className="flex-1 w-full border border-solid border-[#16166b]"
+          >
+            <p>Ethan Guillem</p>
+          </div>
+          <div
+            id="socials"
+            className="flex-1 w-full border border-solid border-[#d18585]"
+          >
+            <a>Email</a>
+          </div>
+          <div className="flex-1 w-full border border-solid border-[#820a74]">
+            hi
+          </div>
+        </footer>
       </div>
     </BrowserRouter>
   );
