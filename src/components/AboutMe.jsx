@@ -10,7 +10,7 @@ function AboutMe(props) {
   useEffect(() => {
     document.title = props.name;
     props.setterForStyle(props.name);
-  }, []);
+  }, [props, props.name]);
 
   return (
     <div id="about-me" className="flex justify-center flex-col items-center">
