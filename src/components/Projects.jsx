@@ -60,7 +60,7 @@ function Card(props) {
           {/* image above the button to go to it */}
         </div>
         <button
-          className="lg:hidden border-black m-2 rounded-lg p-1 border-3"
+          className="lg:hidden border-black m-2 rounded-lg p-1 border-3 hover:scale-105 transition-all duration-250"
           onClick={() => setShowImg(true)}
         >
           <p>{`Click to see the ${props.name} in action!`}</p>

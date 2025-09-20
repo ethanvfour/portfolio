@@ -110,7 +110,9 @@ function App() {
             </ul>
           </div>
           <br></br>
-          <h1 className="w-full text-center">Ethan Guillem</h1>
+          <h1 className="w-full text-center text-[#838383]">
+            Ethan Guillem 2025
+          </h1>
         </footer>
       </div>
     </BrowserRouter>
