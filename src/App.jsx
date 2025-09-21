@@ -44,10 +44,10 @@ function App() {
 
   // Tracks which navigation link is currently active
   const [whichOne, setWhichOne] = useState("");
-
+  
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
-      <div className="flex flex-col min-h-screen font-serif">
+      <div className="flex flex-col min-h-screen font-normal">
         {/* Header section with site title and navigation */}
         <header className="w-full sm:min-h-[100px] md:min-h-[150px] lg:min-h-[175px] bg-[#FFFFFF] mx-auto flex flex-col justify-evenly items-center border-b-3">
           <div className="text-4xl text-center ">Ethan Guillem</div>
@@ -109,9 +109,15 @@ function App() {
               ))}
             </ul>
           </div>
-          <br></br>
+          <br />
+          <a
+            className="text-center text-[#838383]"
+            href="mailto:guillemethan01@gmail.com"
+          >
+            <span className="cursor-pointer">guillemethan01@gmail.com</span>
+          </a>
           <h1 className="w-full text-center text-[#838383]">
-            Ethan Guillem 2025
+            Ethan Guillem
           </h1>
         </footer>
       </div>

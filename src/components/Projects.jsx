@@ -36,6 +36,7 @@ const projects = [
  */
 function Card(props) {
   const [showImg, setShowImg] = useState(false);
+  const safeId = props.name.replace(/\s+/g, "-").toLowerCase();
   //for the button to show the gif if the screen is too small
 
   return (
@@ -43,11 +44,13 @@ function Card(props) {
       className={`relative flex w-[75%] min-h-[300px] border-3 mb-11 rounded-lg shadow-2xl ${
         props.left ? "lg:flex-row" : "lg:flex-row-reverse"
       } flex-col items-center justify-center`}
+      role="group"
+      aria-labelledby={`title-${safeId}`}
     >
       <div
         className={`lg:w-[50%] w-[80%] flex flex-col justify-center items-center`}
       >
-        <div className="text-2xl text-center">{props.name}</div>
+        <div id={`title-${safeId}`} className="text-2xl text-center">{props.name}</div>
         <div className="text-center p-3">{props.desc}</div>
       </div>
       <div className={` w-[50%] flex flex-col items-center justify-evenly`}>
@@ -62,6 +65,9 @@ function Card(props) {
         <button
           className="lg:hidden border-black m-2 rounded-lg p-1 border-3 hover:scale-105 transition-all duration-250"
           onClick={() => setShowImg(true)}
+          aria-expanded={showImg}
+          aria-controls={`hidden-box-${safeId}`}
+          aria-label={`Show ${props.name} demo`}
         >
           <p>{`Click to see the ${props.name} in action!`}</p>
         </button>
@@ -78,10 +84,13 @@ function Card(props) {
       </div>
 
       <div
-        id="hidden_box"
-        className={`${
-          !showImg ? "hidden" : ""
-        } lg:hidden absolute z-50 w-[95%] h-[95%] bg-[#FFFFFF] rounded-lg shadow-md shadow-[#211f1f] flex justify-center flex-col items-center p-2`}
+        id={`hidden-box-${safeId}`}
+        className={`${!showImg ? "hidden" : ""} lg:hidden absolute z-50 w-[95%] h-[95%] bg-[#FFFFFF] rounded-lg shadow-md shadow-[#211f1f] flex justify-center flex-col items-center p-2`}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={`title-${safeId}`}
+        aria-hidden={!showImg}
+        tabIndex={-1}
       >
         <img
           src={props.gifSrc}
@@ -92,6 +101,7 @@ function Card(props) {
           id="exit"
           className="absolute top-2 right-2 hover:text-[#ffffff] focus:text-[#ffffff] text-[#cccccc] transition-all duration-250 bg-black p-1 rounded-md"
           onClick={() => setShowImg(false)}
+          aria-label={`Close ${props.name} demo`}
         >
           Close
         </button>

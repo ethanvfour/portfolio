@@ -19,10 +19,10 @@ function AboutMe(props) {
           <b>About me</b>
         </h1>
         <p className="">
-          Hi! I'm a passionate web developer who loves building interactive and
-          user-friendly applications with React. I enjoy learning new
-          technologies and solving challenging problems. When I'm not coding,
-          you can find me exploring nature or reading tech blogs.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis,
+          accusantium. Possimus nulla consequuntur maxime perspiciatis maiores
+          delectus expedita nobis deleniti! Veritatis impedit debitis laborum
+          quidem quaerat perferendis iusto totam vel!
         </p>
       </div>
     </div>
