@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Home from "./components/Home";
 import WrongPlace from "./components/WrongPlace";
 import "./index.css";
@@ -9,6 +9,7 @@ import AboutMe from "./components/AboutMe";
 import Youtube_photo from "./assets/youtube.png";
 import Twitter_photo from "./assets/twitter.png";
 import Github_photo from "./assets/github.png";
+import LinkedIn_photo from "./assets/linkedin.png";
 
 /**
  * Main App component for the portfolio site.
@@ -40,11 +41,28 @@ function App() {
       link: "https://www.youtube.com/@Ethan_Guillem",
       photo: Youtube_photo,
     },
+    {
+      name: "LinkedIn",
+      link: "https://www.linkedin.com/in/ethan-guillem-7708a1292/",
+      photo: LinkedIn_photo,
+    },
   ];
 
   // Tracks which navigation link is currently active
   const [whichOne, setWhichOne] = useState("");
-  
+  const [firstTime, setFirstTime] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  const handleRouteChange = (l) => //not implemented yet
+  {
+    setLoading(true);
+
+    // if(firstTime)
+    //   setFirstTime(false);
+    // setWhichOne(l.name);
+    setLoading(false);
+  }
+
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <div className="flex flex-col min-h-screen font-normal">
@@ -62,7 +80,7 @@ function App() {
                   whichOne === l.name ? "text-[#000000]" : "text-[#999999]"
                 }`}
                 aria-current={whichOne === l.name ? "page" : ""}
-                onClick={() => setWhichOne(l.name)} // Update active link
+                onClick={() => {handleRouteChange(l)}} // Update active link
               >
                 {l.name}
               </Link>
@@ -70,7 +88,7 @@ function App() {
           </nav>
         </header>
         {/* Main content area with route rendering */}
-        <main className="flex-1 p-1">
+        <main className={`flex-1 p-1 transition-all duration-750 ${loading ? "opacity-0" : "opacity-100"}`}>
           <Routes>
             {LINKS.map((com, i) => (
               <Route
@@ -78,7 +96,7 @@ function App() {
                 path={com.link}
                 element={
                   // Pass name and setter to each route component
-                  <com.component name={com.name} setterForStyle={setWhichOne} />
+                  <com.component name={com.name} setterForStyle={setWhichOne} first={firstTime}/>
                 }
               />
             ))}

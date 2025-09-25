@@ -69,7 +69,7 @@ function Card(props) {
           aria-controls={`hidden-box-${safeId}`}
           aria-label={`Show ${props.name} demo`}
         >
-          <p>{`Click to see the ${props.name} in action!`}</p>
+          <p className="font-bold">{`Click to see the ${props.name} in action!`}</p>
         </button>
         {/*Will only show if the screen is too small*/}
 
