@@ -1,30 +1,7 @@
 import { useEffect, useState } from "react";
+import { projects } from "../data/projects.js";
 
 import "../index.css";
-
-const projects = [
-  {
-    name: "Chat Bot",
-    link: "https://github.com/ethanvfour/chatBotReact",
-    gifSrc: `${import.meta.env.BASE_URL}chatBot.gif`, //has to add because of the github pages
-    description:
-      "A React-based chatbot application. Later on, an ML model is going to be used as a backend to determine whether or not a message is either {Good, Bad, Greeting}",
-  },
-  {
-    name: "Password Manager",
-    link: "https://github.com/ethanvfour/password_manager",
-    gifSrc: `${import.meta.env.BASE_URL}password.gif`,
-    description:
-      "A secure password manager built with C++. Features a simple encryption, and a user-friendly interface for managing credentials.",
-  },
-  {
-    name: "Booth's Algorithm Visualizer",
-    link: "https://github.com/ethanvfour/BoothAlgVisualizer",
-    gifSrc: `${import.meta.env.BASE_URL}boothAlg.gif`,
-    description:
-      "A Booth's Algorithm Visualizer I made to help me with my Computer Architecture class. It shows every step and why a certain step is done and neededs",
-  },
-];
 
 /**
  * Card Component
@@ -50,7 +27,9 @@ function Card(props) {
       <div
         className={`lg:w-[50%] w-[80%] flex flex-col justify-center items-center`}
       >
-        <div id={`title-${safeId}`} className="text-2xl text-center">{props.name}</div>
+        <div id={`title-${safeId}`} className="text-2xl text-center">
+          {props.name}
+        </div>
         <div className="text-center p-3">{props.desc}</div>
       </div>
       <div className={` w-[50%] flex flex-col items-center justify-evenly`}>
@@ -85,7 +64,9 @@ function Card(props) {
 
       <div
         id={`hidden-box-${safeId}`}
-        className={`${!showImg ? "hidden" : ""} lg:hidden absolute z-50 w-[95%] h-[95%] bg-[#FFFFFF] rounded-lg shadow-md shadow-[#211f1f] flex justify-center flex-col items-center p-2`}
+        className={`${
+          !showImg ? "hidden" : ""
+        } lg:hidden absolute z-50 w-[95%] h-[95%] bg-[#FFFFFF] rounded-lg shadow-md shadow-[#211f1f] flex justify-center flex-col items-center p-2`}
         role="dialog"
         aria-modal="true"
         aria-labelledby={`title-${safeId}`}
@@ -99,7 +80,7 @@ function Card(props) {
         />
         <button
           id="exit"
-          className="absolute top-2 right-2 hover:text-[#ffffff] focus:text-[#ffffff] text-[#cccccc] transition-all duration-250 bg-black p-1 rounded-md"
+          className="absolute top-2 right-2 hover:text-[#ffffff] focus:text-[#ffffff] text-[#cccccc] transition-all duration-250 bg-black p-1 rounded-md hover:scale-110"
           onClick={() => setShowImg(false)}
           aria-label={`Close ${props.name} demo`}
         >

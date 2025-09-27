@@ -1,15 +1,8 @@
 import { useRef, useState } from "react";
-import Home from "./components/Home";
-import WrongPlace from "./components/WrongPlace";
 import "./index.css";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import Projects from "./components/Projects";
-import AboutMe from "./components/AboutMe";
-
-import Youtube_photo from "./assets/youtube.png";
-import Twitter_photo from "./assets/twitter.png";
-import Github_photo from "./assets/github.png";
-import LinkedIn_photo from "./assets/linkedin.png";
+import { navigationLinks } from "./data/navigation.js";
+import { socialLinks } from "./data/socials.js";
 
 /**
  * Main App component for the portfolio site.
@@ -17,51 +10,22 @@ import LinkedIn_photo from "./assets/linkedin.png";
  */
 
 function App() {
-  // Navigation links and their associated components
-  const LINKS = [
-    { name: "Home", link: "/", component: Home },
-    { name: "Projects", link: "/projects", component: Projects },
-    { name: "About Me", link: "/about", component: AboutMe },
-    { name: "Wrong Place", link: "*", component: WrongPlace }, // Catch-all route
-  ];
-
-  const SOCIALS = [
-    {
-      name: "GitHub",
-      link: "https://github.com/ethanvfour",
-      photo: Github_photo,
-    },
-    {
-      name: "Twitter/X",
-      link: "https://x.com/ethan_guillem_?s=21",
-      photo: Twitter_photo,
-    },
-    {
-      name: "Youtube",
-      link: "https://www.youtube.com/@Ethan_Guillem",
-      photo: Youtube_photo,
-    },
-    {
-      name: "LinkedIn",
-      link: "https://www.linkedin.com/in/ethan-guillem-7708a1292/",
-      photo: LinkedIn_photo,
-    },
-  ];
 
   // Tracks which navigation link is currently active
   const [whichOne, setWhichOne] = useState("");
   const [firstTime, setFirstTime] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  const handleRouteChange = (l) => //not implemented yet
-  {
+  const handleRouteChange = (
+    l //not implemented yet
+  ) => {
     setLoading(true);
 
     // if(firstTime)
     //   setFirstTime(false);
     // setWhichOne(l.name);
     setLoading(false);
-  }
+  };
 
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
@@ -72,7 +36,7 @@ function App() {
 
           {/* Navigation bar with responsive font sizes */}
           <nav className="flex mt-4 w-full justify-evenly sm:text-sm md:text-base lg:text-lg">
-            {LINKS.filter((l) => l.link !== "*").map((l, index) => (
+            {navigationLinks.filter((l) => l.link !== "*").map((l, index) => (
               <Link
                 key={index}
                 to={l.link}
@@ -80,7 +44,9 @@ function App() {
                   whichOne === l.name ? "text-[#000000]" : "text-[#999999]"
                 }`}
                 aria-current={whichOne === l.name ? "page" : ""}
-                onClick={() => {handleRouteChange(l)}} // Update active link
+                onClick={() => {
+                  handleRouteChange(l);
+                }} // Update active link
               >
                 {l.name}
               </Link>
@@ -88,15 +54,23 @@ function App() {
           </nav>
         </header>
         {/* Main content area with route rendering */}
-        <main className={`flex-1 p-1 transition-all duration-750 ${loading ? "opacity-0" : "opacity-100"}`}>
+        <main
+          className={`flex-1 p-1 transition-all duration-750 ${
+            loading ? "opacity-0" : "opacity-100"
+          }`}
+        >
           <Routes>
-            {LINKS.map((com, i) => (
+            {navigationLinks.map((com, i) => (
               <Route
                 key={i}
                 path={com.link}
                 element={
                   // Pass name and setter to each route component
-                  <com.component name={com.name} setterForStyle={setWhichOne} first={firstTime}/>
+                  <com.component
+                    name={com.name}
+                    setterForStyle={setWhichOne}
+                    first={firstTime}
+                  />
                 }
               />
             ))}
@@ -107,7 +81,7 @@ function App() {
         <footer className="w-full min-h-[100px] bg-[#ededed] shadow-xl/30 border-solid border-[#000000] border-t-3 text-[#000000] text-xs flex flex-col justify-evenly">
           <div id="socials" className="w-full">
             <ul className="flex justify-center gap-x-8 m-1">
-              {SOCIALS.map((s) => (
+              {socialLinks.map((s) => (
                 <li key={s.link} className="mx-1">
                   <a
                     href={s.link}
@@ -134,9 +108,7 @@ function App() {
           >
             <span className="cursor-pointer">guillemethan01@gmail.com</span>
           </a>
-          <h1 className="w-full text-center text-[#838383]">
-            Ethan Guillem
-          </h1>
+          <h1 className="w-full text-center text-[#838383]">Ethan Guillem</h1>
         </footer>
       </div>
     </BrowserRouter>
