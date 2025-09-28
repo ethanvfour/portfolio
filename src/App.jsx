@@ -81,7 +81,7 @@ function App() {
 
         <footer className="w-full min-h-[100px] bg-[#ededed] shadow-xl/30 border-solid border-[#000000] border-t-3 text-[#000000] text-xs flex flex-col justify-evenly">
           <div id="socials" className="w-full">
-            <ul className="flex justify-center gap-x-8 m-1">
+            <ul className="flex justify-center gap-x-8 m-1 flex-wrap">
               {socialLinks.map((s) => (
                 <li key={s.link} className="mx-1">
                   <a
