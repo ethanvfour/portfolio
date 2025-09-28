@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import "./index.css";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { navigationLinks } from "./data/navigation.js";
@@ -10,7 +10,6 @@ import { socialLinks } from "./data/socials.js";
  */
 
 function App() {
-
   // Tracks which navigation link is currently active
   const [whichOne, setWhichOne] = useState("");
   const [firstTime, setFirstTime] = useState(true);
@@ -36,21 +35,23 @@ function App() {
 
           {/* Navigation bar with responsive font sizes */}
           <nav className="flex mt-4 w-full justify-evenly sm:text-sm md:text-base lg:text-lg">
-            {navigationLinks.filter((l) => l.link !== "*").map((l, index) => (
-              <Link
-                key={index}
-                to={l.link}
-                className={` hover:text-[#000000] focus:text-[#000000] transition-all duration-250 ${
-                  whichOne === l.name ? "text-[#000000]" : "text-[#999999]"
-                }`}
-                aria-current={whichOne === l.name ? "page" : ""}
-                onClick={() => {
-                  handleRouteChange(l);
-                }} // Update active link
-              >
-                {l.name}
-              </Link>
-            ))}
+            {navigationLinks
+              .filter((l) => l.link !== "*")
+              .map((l, index) => (
+                <Link
+                  key={index}
+                  to={l.link}
+                  className={` hover:text-[#000000] focus:text-[#000000] transition-all duration-250 ${
+                    whichOne === l.name ? "text-[#000000]" : "text-[#999999]"
+                  }`}
+                  aria-current={whichOne === l.name ? "page" : ""}
+                  onClick={() => {
+                    handleRouteChange(l);
+                  }} // Update active link
+                >
+                  {l.name}
+                </Link>
+              ))}
           </nav>
         </header>
         {/* Main content area with route rendering */}
@@ -109,6 +110,15 @@ function App() {
             <span className="cursor-pointer">guillemethan01@gmail.com</span>
           </a>
           <h1 className="w-full text-center text-[#838383]">Ethan Guillem</h1>
+          <a
+            href="https://www.flaticon.com"
+            title="all_icons"
+            className="text-[8px] w-full text-[#838383]"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Icons created by Freepik - Flaticon
+          </a>
         </footer>
       </div>
     </BrowserRouter>

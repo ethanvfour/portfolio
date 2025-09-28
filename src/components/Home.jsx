@@ -60,7 +60,8 @@ function Home(props) {
               openOrNot ? "mt-1 opacity-100" : "opacity-0"
             } text-base transition-all duration-500 text-center hover:text-[#000000] focus:text-[#000000] text-[#999999] md:hidden`}
           >
-            Click to see my <span className="italic font-bold">About Me</span> to see more
+            Click to see my <span className="italic font-bold">About Me</span>{" "}
+            to see more
           </Link>
           <p
             id="home-bio"
@@ -72,10 +73,9 @@ function Home(props) {
           >
             {/* {cool bio here} */}
             Hello! My name is Ethan Guillem and I am a Computer Science major at
-            UNLV. I want to pursue machine learning as my focus. I see it more
-            of a tool rather than something to be scared of. I hope you find all
-            that is useful to why you're here, all this is still a work on
-            progress. Email me and let me know if there should be any changes!
+            UNLV. I hope you find all that is useful to why you're here, all
+            this is still a work on progress. Email me and let me know if there
+            should be any changes!
           </p>
         </div>
         <div
