@@ -29,12 +29,24 @@ function App() {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <div className="flex flex-col min-h-screen font-normal">
+        {/* Skip link for keyboard users */}
+        <a href="#main" className="sr-only focus:not-sr-only">
+          Skip to main content
+        </a>
         {/* Header section with site title and navigation */}
-        <header className="w-full sm:min-h-[100px] md:min-h-[150px] lg:min-h-[175px] bg-[#FFFFFF] mx-auto flex flex-col justify-evenly items-center border-b-3">
-          <div className="text-4xl text-center ">Ethan Guillem</div>
+        <header
+          role="banner"
+          className="w-full sm:min-h-[100px] md:min-h-[150px] lg:min-h-[175px] mx-auto flex flex-col justify-evenly items-center bg-white"
+          
+        >
+          <h1 className="text-4xl text-center text-gray-700">Ethan Guillem</h1>
 
           {/* Navigation bar with responsive font sizes */}
-          <nav className="flex mt-4 w-full justify-evenly sm:text-sm md:text-base lg:text-lg">
+          <nav
+            role="navigation"
+            aria-label="Main navigation"
+            className="flex mt-4 w-full justify-evenly sm:text-sm md:text-base lg:text-lg"
+          >
             {navigationLinks
               .filter((l) => l.link !== "*")
               .map((l, index) => (
@@ -44,7 +56,8 @@ function App() {
                   className={` hover:text-[#000000] focus:text-[#000000] transition-all duration-250 ${
                     whichOne === l.name ? "text-[#000000]" : "text-[#999999]"
                   }`}
-                  aria-current={whichOne === l.name ? "page" : ""}
+                  aria-current={whichOne === l.name ? "page" : undefined}
+                  aria-label={`${l.name} page`}
                   onClick={() => {
                     handleRouteChange(l);
                   }} // Update active link
@@ -56,7 +69,10 @@ function App() {
         </header>
         {/* Main content area with route rendering */}
         <main
-          className={`flex-1 p-1 transition-all duration-750 ${
+          id="main"
+          role="main"
+          tabIndex={-1}
+          className={`flex-1 p-1 transition-all duration-750 bg-[#ececec] ${
             loading ? "opacity-0" : "opacity-100"
           }`}
         >
@@ -79,7 +95,11 @@ function App() {
         </main>
         {/* Footer section */}
 
-        <footer className="w-full min-h-[100px] bg-[#ededed] shadow-xl/30 border-solid border-[#000000] border-t-3 text-[#000000] text-xs flex flex-col justify-evenly">
+        <footer
+          role="contentinfo"
+          aria-label="Footer"
+          className="w-full min-h-[100px] bg-white shadow-xl/30 border-solid border-[#000000] text-[#000000] text-xs flex flex-col justify-evenly pt-1.5  "
+        >
           <div id="socials" className="w-full">
             <ul className="flex justify-center gap-x-8 m-1 flex-wrap">
               {socialLinks.map((s) => (
@@ -89,6 +109,7 @@ function App() {
                     target="_blank"
                     className="hover:text-[#000000] focus:text-[#000000] text-[#838383] transition-all duration-250 flex items-center gap-2"
                     rel="noopener noreferrer"
+                    aria-label={s.name}
                   >
                     <img
                       src={s.photo}

@@ -13,8 +13,6 @@ function AboutMe(props) {
     props.setterForStyle(props.name);
   }, [props, props.name]);
 
-  const divOfImg = useRef(0);
-
   const addValue = 200;
   const [currIndex, setIndex] = useState(0);
 
@@ -47,41 +45,53 @@ function AboutMe(props) {
             that I've learned from my classes to learn many other topics such as
             web development, machine learning, and many more.
           </p>
-          <img />
+          {/* decorative image placeholder - explicitly hidden from AT */}
+          <img alt="" aria-hidden="true" />
         </div>
 
         {/* will not show if screen is too small */}
         <div
           id="languages"
           className=" bg-white rounded-lg shadow-sm w-3/4 md:min-w-1/2 md:max-w-1/2 relative pb-5 hidden md:block"
+          role="region"
+          aria-labelledby="tools-heading"
+          aria-roledescription="carousel"
+          aria-label="Tools carousel"
         >
-          <h1 className="p-4 text-4xl font-semibold mb-4">
+          <h1 id="tools-heading" className="p-4 text-4xl font-semibold mb-4">
             {"Tools of the Trade"}
           </h1>
           <button
             className={`absolute text-4xl translate-y-1/2 top-1/2 left-2 z-10 ${
-              currIndex == 0 ? "text-gray-400" : "hover:cursor-pointer"
+              currIndex == 0 ? "text-gray-400" : ""
             } transition-all duration-500`}
             onClick={handleLeft}
             disabled={currIndex == 0}
+            aria-label="Previous tool"
+            aria-controls="rotating"
+            aria-disabled={currIndex == 0}
           >
             {"<"}
           </button>
           <button
             className={`absolute text-4xl right-2 top-1/2 translate-y-1/2 z-10 ${
-              currIndex == codingLangPhotos.length - 1
-                ? "text-gray-400"
-                : "hover:cursor-pointer"
+              currIndex == codingLangPhotos.length - 1 ? "text-gray-400" : ""
             } transition-all duration-500`}
             onClick={handleRight}
             disabled={currIndex == codingLangPhotos.length - 1}
+            aria-label="Next tool"
+            aria-controls="rotating"
+            aria-disabled={currIndex == codingLangPhotos.length - 1}
           >
             {">"}
           </button>
-          <div id="rotating" className="overflow-hidden flex flex-row">
-            {codingLangPhotos.map((e) => (
+          <div id="rotating" className="overflow-hidden flex flex-row" aria-live="polite">
+            {codingLangPhotos.map((e, i) => (
               <Fragment key={e.image}>
                 <div
+                  role="group"
+                  aria-roledescription="slide"
+                  aria-label={`${e.name} ${i + 1} of ${codingLangPhotos.length}`}
                   className="relative transition-all duration-500 object-contain 
                   mr-[200px] max-w-[200px] max-h-[200px] min-w-[200px] min-h-[200px]
                   
@@ -89,7 +99,6 @@ function AboutMe(props) {
                   style={{
                     transform: `translateX(${50 + currIndex * -addValue}%)`,
                   }}
-                  ref={divOfImg}
                 >
                   <img
                     src={e.image}
@@ -99,6 +108,11 @@ function AboutMe(props) {
                 </div>
               </Fragment>
             ))}
+
+            {/* Announce current slide for screen readers */}
+            <span className="sr-only" aria-live="polite">
+              {codingLangPhotos[currIndex]?.name}
+            </span>
           </div>
         </div>
 
@@ -107,25 +121,21 @@ function AboutMe(props) {
           <h1 className="text-4xl font-semibold mb-4 w-full text-center">
             {"Tools of the Trade"}
           </h1>
-          <ul className="w-full flex flex-col items-center justify-between gap-2.5">
+          <ul role="list" className="w-full flex flex-col items-center justify-between gap-2.5">
             {codingLangPhotos.map((e) => (
-              
-                <li key={e.image} 
-                    className="object-contain flex flex-row ">
-                  <img
-                    src={e.image}
-                    alt={e.alt}
-                    className="w-7 h-7 object-contain mr-2"
-                  />
-                  <p>{e.name}</p>
-                </li>
-              
+              <li role="listitem" key={e.image} className="object-contain flex flex-row ">
+                <img
+                  src={e.image}
+                  alt={e.alt}
+                  className="w-7 h-7 object-contain mr-2"
+                />
+                <p>{e.name}</p>
+              </li>
             ))}
           </ul>
         </div>
-
-
       </div>
+    
     </div>
   );
 }
